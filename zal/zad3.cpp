@@ -6,15 +6,11 @@ TEST_CASE("Move semantics", "[]")
 {
     {
         ResourceManager rm1;
-        const auto      getv = rm1.get();
-        ResourceManager rm2{std::move(rm1)};
-
-        REQUIRE(getv == rm2.get());
-
-        ResourceManager rm3;
-        rm3 = std::move(rm2);
-        REQUIRE(ConstructionTracker::live == 1);
-        REQUIRE(getv == rm3.get());
+		const double storedValue = rm1.get();
+		ResourceManager rm2{ std::move(rm1) };
+		REQUIRE(storedValue == rm2.get());
+		ResourceManager rm3 = std::move(rm2);
+		REQUIRE(storedValue == rm3.get());
     }
     REQUIRE(ConstructionTracker::live == 0);
 }
