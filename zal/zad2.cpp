@@ -9,6 +9,7 @@ TEST_CASE("Сopy constructor", "[]")
         REQUIRE(rm1->get() == rm2.get());
         ResourceManager rm3(rm2);
         REQUIRE(rm1->get() == rm3.get());
+        delete rm1;
     }
     REQUIRE(ConstructionTracker::live == 0);
 }
